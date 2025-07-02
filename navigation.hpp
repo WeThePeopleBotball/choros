@@ -115,7 +115,7 @@ class Navigation {
     /**
      * @brief Sets the robot’s current node.
      */
-    void set_node(const std::string &id);
+    void set_node(const std::optional<std::string> &id);
 
     /**
      * @brief Gets the robot’s current node.

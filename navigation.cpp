@@ -141,7 +141,7 @@ Navigation::find_path(const std::string &to,
 
 std::optional<std::string> Navigation::get_node() const { return current_node; }
 
-void Navigation::set_node(const std::string &id) {
+void Navigation::set_node(const std::optional<std::string> &id) {
     current_node = id;
     current_location.reset();
 }
