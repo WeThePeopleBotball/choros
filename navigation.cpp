@@ -56,22 +56,6 @@ void Navigation::add_edge(const std::string &from, const std::string &to,
     }
 }
 
-void Navigation::add_location(const std::string &id, const Location &location) {
-    location_map[id] = location;
-}
-
-std::optional<std::string> Navigation::get_location() const {
-    return current_location;
-}
-
-std::optional<Location>
-Navigation::get_location_spec(const std::string &id) const {
-    auto it = location_map.find(id);
-    if (it != location_map.end())
-        return it->second;
-    return std::nullopt;
-}
-
 std::optional<std::vector<Edge>>
 Navigation::find_path(const std::string &to,
                       const std::unordered_set<std::string> &blacklist) const {
@@ -143,15 +127,6 @@ std::optional<std::string> Navigation::get_node() const { return current_node; }
 
 void Navigation::set_node(const std::optional<std::string> &id) {
     current_node = id;
-    current_location.reset();
-}
-
-void Navigation::set_location(const std::string &id) {
-    auto it = location_map.find(id);
-    if (it != location_map.end()) {
-        current_node = it->second.from_node;
-        current_location = id;
-    }
 }
 
 std::optional<NodeType>

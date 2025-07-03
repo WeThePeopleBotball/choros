@@ -25,23 +25,6 @@ enum class EdgeOrientation { HORIZONTAL, VERTICAL };
 enum class NodeType { PRIMARY, SECONDARY };
 
 /**
- * @brief Represents a vector offset (dx, dy) in millimeters from a node to a
- * location.
- */
-struct VectorOffset {
-    float dx;
-    float dy;
-};
-
-/**
- * @brief Represents a specific target location relative to a graph node.
- */
-struct Location {
-    std::string from_node;
-    std::vector<VectorOffset> path;
-};
-
-/**
  * @brief Represents a directed edge in the navigation graph.
  */
 struct Edge {
@@ -90,27 +73,11 @@ class Navigation {
                   Direction direction);
 
     /**
-     * @brief Adds a named location that can be reached via vector movement from
-     * a node.
-     */
-    void add_location(const std::string &id, const Location &location);
-
-    /**
      * @brief Finds a shortest path from current node to a target node.
      */
     std::optional<std::vector<Edge>>
     find_path(const std::string &to,
               const std::unordered_set<std::string> &blacklist = {}) const;
-
-    /**
-     * @brief Gets the robot’s current node.
-     */
-    std::optional<std::string> get_location() const;
-
-    /**
-     * @brief Retrieves a location spec. by ID.
-     */
-    std::optional<Location> get_location_spec(const std::string &id) const;
 
     /**
      * @brief Sets the robot’s current node.
@@ -123,11 +90,6 @@ class Navigation {
     std::optional<std::string> get_node() const;
 
     /**
-     * @brief Sets the current robot location (by location ID).
-     */
-    void set_location(const std::string &id);
-
-    /**
      * @brief Returns the type of a node if known.
      */
     std::optional<NodeType> get_node_type(const std::string &node) const;
@@ -135,10 +97,8 @@ class Navigation {
   private:
     std::unordered_map<std::string, std::vector<Edge>> adjacency_list;
     std::unordered_map<std::string, NodeType> node_types;
-    std::unordered_map<std::string, Location> location_map;
 
     std::optional<std::string> current_node;
-    std::optional<std::string> current_location;
 };
 
 } // namespace choros
