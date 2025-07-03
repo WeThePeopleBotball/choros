@@ -137,4 +137,20 @@ Navigation::get_node_type(const std::string &node) const {
     return std::nullopt;
 }
 
+std::optional<Edge> Navigation::get_edge(const std::string &from,
+                                         const std::string &to) const {
+    if (node_types.find(from) == node_types.end() ||
+        node_types.find(to) == node_types.end()) {
+        throw std::invalid_argument(
+            "Both nodes must be added before searching for an edge.");
+    }
+
+    std::optional<Edge> edge = std::nullopt;
+    for (auto &e : adjacency_list.at(from)) {
+        if (e.to == to)
+            return e;
+    }
+    return std::nullopt;
+}
+
 } // namespace choros

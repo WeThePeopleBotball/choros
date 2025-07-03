@@ -94,6 +94,15 @@ class Navigation {
      */
     std::optional<NodeType> get_node_type(const std::string &node) const;
 
+    /**
+     * @brief Returns the edge from one node to another
+     *
+     * @param from Source node
+     * @param to Destination node
+     */
+    std::optional<Edge> get_edge(const std::string &from,
+                                 const std::string &to) const;
+
   private:
     std::unordered_map<std::string, std::vector<Edge>> adjacency_list;
     std::unordered_map<std::string, NodeType> node_types;
